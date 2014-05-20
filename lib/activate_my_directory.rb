@@ -4,8 +4,13 @@ require 'yaml'
 
 module ActivateMyDirectory
   class << self
+    def config_path
+      ENV['ACTIVATE_MY_DIRECTORY_CONFIG'] || 
+        File.join(Dir.home, '.activate_my_directory', 'config.yml')
+    end
+
     def yaml
-      @yaml ||= YAML::load_file(File.join(File.dirname(File.expand_path(__FILE__)), '..', 'config.yml'))
+      @yaml ||= YAML::load_file(config_path)
     end
 
     def settings
